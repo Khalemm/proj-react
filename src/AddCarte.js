@@ -1,40 +1,39 @@
 import { Form } from 'react-bootstrap';
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router";
 
 
-class AddCarte extends React.Component {
+const AddCarte = () => {
 
-    constructor() {
-        super();
-        this.handleChangeTitre = this.handleChangeTitre.bind(this);
-        this.handleChangeTexte = this.handleChangeTexte.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.carte = { titre:"", texte:""}
+    const navigate = useNavigate();
+    const[titre,setTitre] = useState();
+    const[texte,setTexte] = useState();
+
+    function handleChangeTitre(data) {
+        setTitre(data.target.value);
+    }
+    function handleChangeTexte(data) {
+        setTexte(data.target.value);
     }
 
-    handleChangeTitre(data) {
-        this.carte.titre = data.target.value;
-    }
-    handleChangeTexte(data) {
-        this.carte.texte = data.target.value;
+    function handleSubmit(event) {
+        console.log(titre);
+        console.log(titre);
+        localStorage.setItem('cartesTitre', titre);
+        localStorage.setItem('cartesTexte', texte);
+        navigate("../ListeCarte");
     }
 
-    handleSubmit(event) {
-        console.log(this.carte);
-        localStorage.setItem('cartesTitre', this.carte.titre);
-        localStorage.setItem('cartesTexte', this.carte.texte);
-    }
-    render() {
         return (
             <div className="App">
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formTitre">
                         <Form.Label>titre</Form.Label>
                         <Form.Control
                             type="input"
                             placeholder="titre"
                             name="titre"
-                            onChange={this.handleChangeTitre} />
+                            onChange={handleChangeTitre} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formTexte">
                         <Form.Label>texte</Form.Label>
@@ -42,12 +41,11 @@ class AddCarte extends React.Component {
                             type="input"
                             placeholder="texte"
                             name="texte"
-                            onChange={this.handleChangeTexte} />
+                            onChange={handleChangeTexte} />
                     </Form.Group>
                     <input type="submit"/>
                 </Form>
             </div>
         );
     }
-}
 export default AddCarte;
