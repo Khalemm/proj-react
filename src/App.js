@@ -1,6 +1,6 @@
 import './App.css';
-import ApiCall from './ApiCall';
-import ListeCarte from './ListeCarte';
+import Favoris from './Favoris';
+import RandomFilm from './RandomFilm';
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 function App() {
@@ -13,17 +13,17 @@ function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="ApiCall">api call</Link>
+              <Link to="Favoris">film favoris</Link>
             </li>
             <li>
-              <Link to="ListeCarte">liste</Link>
+              <Link to="RandomFilm">random film</Link>
             </li>
           </ul>
           <hr />
           <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path="ListeCarte" element={<ListeCarte/>}/>
-            <Route path="ApiCall" element={<ApiCall/>}/>
+            <Route path="RandomFilm" element={<RandomFilm/>}/>
+            <Route path="Favoris" element={<Favoris/>}/>
           </Routes>
         </div>
       </Router>
