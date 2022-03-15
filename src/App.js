@@ -1,5 +1,5 @@
 import './App.css';
-import AddCarte from './AddCarte';
+import ApiCall from './ApiCall';
 import ListeCarte from './ListeCarte';
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
@@ -13,7 +13,7 @@ function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="AddCarte">add</Link>
+              <Link to="ApiCall">api call</Link>
             </li>
             <li>
               <Link to="ListeCarte">liste</Link>
@@ -23,7 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="ListeCarte" element={<ListeCarte/>}/>
-            <Route path="AddCarte" element={<AddCarte/>}/>
+            <Route path="ApiCall" element={<ApiCall/>}/>
           </Routes>
         </div>
       </Router>
