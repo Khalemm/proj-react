@@ -41,6 +41,8 @@
 voici un super projet git qui permet de faire du requettage API via https://api.themoviedb.org/3/
 on va récupérer aléatoirement des films via cette API, et les gérer dans une liste de favoris
 
+Lien vers mon site : https://filmlist-api.netlify.app
+
 <p align="right">(<a href="#top">retourner en haut</a>)</p>
 
 
