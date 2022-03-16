@@ -2,36 +2,34 @@ import './App.css';
 import Favoris from './Favoris';
 import RandomFilm from './RandomFilm';
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { Navbar, Container, Nav } from 'react-bootstrap';
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <div>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="Favoris">film favoris</Link>
-            </li>
-            <li>
-              <Link to="RandomFilm">random film</Link>
-            </li>
-          </ul>
-          <hr />
-          <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="RandomFilm" element={<RandomFilm/>}/>
-            <Route path="Favoris" element={<Favoris/>}/>
-          </Routes>
-        </div>
-      </Router>
-    </div>
+        <Navbar bg="primary" variant="dark">
+          <Container>
+            <Navbar.Brand href="#">themoviedb API</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link><Link to="/">Home</Link></Nav.Link>
+              <Nav.Link><Link to="RandomFilm">random film</Link></Nav.Link>
+              <Nav.Link><Link to="Favoris">film favoris</Link></Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="RandomFilm" element={<RandomFilm />} />
+          <Route path="Favoris" element={<Favoris />} />
+        </Routes>
+      </Router >
+    </div >
   );
 }
 
 function Home() {
-  return(<div><h2>home</h2></div>)
+  localStorage.setItem(1, 1)
+  return (<div><h2>Obtention de films de manière aléatoire !</h2></div>)
 }
 export default App;

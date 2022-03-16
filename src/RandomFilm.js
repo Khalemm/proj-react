@@ -1,52 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+import Film from './Film';
 
-function getRandom(min, max) {
-    return Math.trunc(Math.random() * (max - min) + min);
-}
-const setFavoris = (id, url) => {
-    localStorage.setItem(id, url)
-}
-
-const Film = ({ data }) => {
-    console.log(data);
-    return (
-        <div>
-            <h1>{data.original_title}</h1>
-            <p>Synopsys: {data.overview}</p>
-        </div>
-    )
+/**
+ * va placer dans la liste des favoris le film voulu
+ * @param {*} url l'url du film
+ */
+const setFavoris = (url) => {
+    var increment = parseInt(localStorage.getItem(1)) + 1
+    localStorage.setItem(1, increment)
+    localStorage.setItem(localStorage.getItem(1), url)
 }
 
+/**
+ * va obtenir un film aléatoire. Sachant qu'il n'y a pas de requete API pour, je créée manuellement une ID
+ * aléatoire a placer dans l'URL. (je n'ai pas eu le temps de controller quand l'url sort un 404)
+ * @returns un film aléatoire
+ */
 const RandomFilm = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [film, setFilm] = useState([]);
-    const id = getRandom(1, 1000)
-    const url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=3dceec64c036d3bb5cc3708d099863fa";
-    
+    const [url, setUrl] = useState();
+    //obtient un nouveau film aléatoire
+    const newRandom = () =>{
+        setIsLoading(true)
+    }
     useEffect(() => {
         const getFilm = () => {
-            if(isLoading){
-                fetch(url, {
+            if (isLoading) {
+                //créées une ID généré aléatoirement
+                const id = Math.trunc(Math.random() * (2000 - 1) + 1);
+                const filmURL = "https://api.themoviedb.org/3/movie/" + id + "?api_key=3dceec64c036d3bb5cc3708d099863fa";
+                console.log(filmURL);
+                fetch(filmURL, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
                 })
                     .then((response) => response.json())
-                    .then((data) => {setIsLoading(false);setFilm(data);console.log(data)})
+                    .then((data) => {
+                        setIsLoading(false);
+                        setFilm(data);
+                        setUrl(filmURL);
+                        console.log(data)
+                    })
                     .catch(error => console.log(error));
             }
         }
         getFilm();
-    }, [url,isLoading]);
+    }, [isLoading]);
     if (isLoading) {
         return <div>Chargement...</div>;
     }
     return (
         <div>
             {film && <Film data={film} />}
-            <Button onClick={setFavoris(id, url)}>save</Button>
+            <Button onClick={function (e) { setFavoris(url) }}>sauvegarder dans les favoris</Button>
+            <br/>
+            <Button onClick={function (e) { newRandom() }}>nouveau film aléatoire</Button>
         </div>
     );
 }
